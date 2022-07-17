@@ -1,8 +1,5 @@
 pipeline {
-    agent {
-        docker {
-     image 'wroquem/open-jdk:1.8'
-    }
+    agent any
         
     }
 
