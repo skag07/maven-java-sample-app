@@ -1,46 +1,51 @@
 pipeline {
+
     agent any
 
     stages {
-        
-         stage('Quality Scan') {
+
+        stage('Build'){
             steps {
-               
-            sh "mvn -Dmaven.test.failure.ignore=true clean compile"
-               
-            sh "mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=demo5 \
-  -Dsonar.host.url=http://54.226.50.200 \
-  -Dsonar.login=sqp_50bb0b503303ece646f334b8f55375d33625aa6a"
+                sh "mvn clean"
 
-               
+                sh "mvn compile"
             }
-
-            
         }
-        
-        stage('Build') {
+
+        stage('Test'){
             steps {
-
-                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true package"
-
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                
+                sh "mvn test"
             }
-            
-             post {
+
+            post {
                 always {
                     junit '**/target/surefire-reports/TEST-*.xml'
                 }
+            }
+        }
+
+        stage('sonar scan'){
+            steps {
+              sh "mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=demo5 \
+  -Dsonar.host.url=http://54.226.50.200 \
+  -Dsonar.login=sqp_50bb0b503303ece646f334b8f55375d33625aa6a"
+            }
+        }
+
+        stage('Package'){
+            steps {
+                
+                sh "mvn package"
+            }
+            post {
                 success {
-                    
-                    archiveArtifacts 'target/*.jar'
+                    archiveArtifacts artifacts: '**/target/*.war', followSymlinks: false
                 }
             }
-            
         }
-        
-       
+
     }
+
 }
