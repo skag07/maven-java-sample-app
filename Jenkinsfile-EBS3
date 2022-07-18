@@ -25,8 +25,8 @@ pipeline {
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
 
                 //Run mvnw package
-                sh 'chmod +x mvnw'
-                sh './mvnw package'
+                sh 'sudo chmod +x mvnw'
+                sh 'sudo ./mvnw package'
             }
             
              post {
