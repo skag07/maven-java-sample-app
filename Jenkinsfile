@@ -2,47 +2,45 @@ pipeline {
     agent any
 
     stages {
-        stage('Build'){
+        
+         stage('Quality Scan') {
             steps {
-                sh 'mvn compile'
-            }
-        }
+               
+            sh "mvn -Dmaven.test.failure.ignore=true clean compile"
+               
+            sh "mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=demo5 \
+  -Dsonar.host.url=http://54.226.50.200 \
+  -Dsonar.login=sqp_50bb0b503303ece646f334b8f55375d33625aa6a"
 
-        stage('Test'){
-            steps {
-                sh 'mvn test'
+               
             }
-        }
 
-        stage('Package'){
             
-        steps {
-                sh 'mvn package'
-           }
-
-         post {
-            always {
-                junit 'target/surefire-reports/TEST-*.xml'
-            }
-            success {
-                archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
-            }
         }
         
-        }
-
-        stage('Deploy'){
+        stage('Build') {
             steps {
 
-                withEnv(['JENKINS_NODE_COOKIE=dontKillMe']) {
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true package"
 
-                sh '& java "-Dserver.port=8001" -jar target/spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar'
-
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+            
+             post {
+                always {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
+                success {
+                    
+                    archiveArtifacts 'target/*.jar'
                 }
             }
+            
         }
+        
+       
     }
-
-
-
 }
