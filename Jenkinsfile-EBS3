@@ -13,6 +13,30 @@ pipeline {
         
          
         
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/saurabhd2106/maven-java-sample-app.git'
+
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true package"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+            
+             post {
+                always {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
+                success {
+                    
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+            
+        }
+        
        stage('Publish') {
             steps {
                 sh 'aws configure set region us-east-1'
