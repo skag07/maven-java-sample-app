@@ -4,20 +4,20 @@ pipeline {
     stages {
         stage('Build'){
             steps {
-                powershell 'mvn compile'
+                sh 'mvn compile'
             }
         }
 
         stage('Test'){
             steps {
-                powershell 'mvn test'
+                sh 'mvn test'
             }
         }
 
         stage('Package'){
             
         steps {
-                powershell 'mvn package'
+                sh 'mvn package'
            }
 
          post {
@@ -36,7 +36,7 @@ pipeline {
 
                 withEnv(['JENKINS_NODE_COOKIE=dontKillMe']) {
 
-                powershell '& java "-Dserver.port=8001" -jar target/spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar'
+                sh '& java "-Dserver.port=8001" -jar target/spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar'
 
                 }
             }
