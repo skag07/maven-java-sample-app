@@ -10,6 +10,16 @@ pipeline {
         AWS_EB_APP_VERSION = "${BUILD_ID}"
     } 
     stages {
+
+        stage('Validate') {
+            steps {
+                
+                sh "mvn validate"
+
+                sh "mvn clean"
+
+            }
+        }
         
          stage('Quality Scan') {
             steps {
