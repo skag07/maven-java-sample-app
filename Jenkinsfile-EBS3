@@ -11,15 +11,7 @@ pipeline {
     } 
     stages {
 
-        stage('Validate') {
-            steps {
-                
-                sh "mvn validate"
-
-                sh "mvn clean"
-
-            }
-        }
+        
         
          stage('Quality Scan') {
             steps {
