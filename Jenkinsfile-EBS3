@@ -1,12 +1,12 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+        AWS_ACCESS_KEY_ID     = credentials('Saeed-AccessKey')
+        AWS_SECRET_ACCESS_KEY = credentials('Saeed-SecretKey')
         ARTIFACT_NAME = 'springclinic.jar'
-        AWS_S3_BUCKET = 'jenkins-store'
-        AWS_EB_APP_NAME = 'java-mvn-assn1'
-        AWS_EB_ENVIRONMENT = 'Javamvnassn1-env'
+        AWS_S3_BUCKET = 'sda-learning-jenkins'
+        AWS_EB_APP_NAME = 'Saeed-Jenkins-assignment'
+        AWS_EB_ENVIRONMENT = 'Saeedjenkinsassignment-env'
         AWS_EB_APP_VERSION = "${BUILD_ID}"
     } 
     stages {
@@ -19,9 +19,9 @@ pipeline {
             sh "mvn -Dmaven.test.failure.ignore=true clean compile"
                
             sh "mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=demo5 \
-  -Dsonar.host.url=https://8141-54-226-50-200.ngrok.io \
-  -Dsonar.login=sqp_50bb0b503303ece646f334b8f55375d33625aa6a"
+  -Dsonar.projectKey=class-D3A1-Saeed \
+  -Dsonar.host.url=http://54.226.50.200 \
+  -Dsonar.login=sqp_3ccda4ad379ef18afb14d7de70d21c7ada61530c"
                
             }
 
@@ -63,7 +63,7 @@ pipeline {
                 success {
                     echo 'success Jenkinsfile-EBS3'
                     // bat 'aws configure set region us-east-1'
-                    // bat 'aws s3 cp ./target/calculator-0.0.1-SNAPSHOT.jar s3://YOUR-BUCKET-NAME/calculator.jar'
+                    // bat 'aws s3 cp ./target/calculator-0.0.1-SNAPSHOT.jar s3://sda-learning-jenkins/calculator.jar'
                 }
             }
         }
