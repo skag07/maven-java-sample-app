@@ -19,9 +19,9 @@ pipeline {
             sh "mvn -Dmaven.test.failure.ignore=true clean compile"
                
             sh "mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=class-D3A1-Saeed \
-  -Dsonar.host.url=https://5b89-54-226-50-200.ngrok.io/ \
-  -Dsonar.login=sqp_6fd61a85d937b417f51995666c122ea16662bb26"
+  -Dsonar.projectKey=D3A1-Saeed \
+  -Dsonar.host.url=https://5b89-54-226-50-200.ngrok.io \
+  -Dsonar.login=sqp_74ec93ca9682644dde347a16ffda99a4d2001b18"
                
             }
 
