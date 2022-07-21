@@ -20,7 +20,7 @@ pipeline {
                
             sh "mvn clean verify sonar:sonar \
   -Dsonar.projectKey=class-D3A1-Saeed \
-  -Dsonar.host.url=https://a298-54-226-50-200.ngrok.io \
+  -Dsonar.host.url=https://5b89-54-226-50-200.ngrok.io/ \
   -Dsonar.login=sqp_6fd61a85d937b417f51995666c122ea16662bb26"
                
             }
