@@ -16,12 +16,12 @@ pipeline {
          stage('Quality Scan') {
             steps {
                
-            sh "mvn -Dmaven.test.failure.ignore=true clean compile"
+            #sh "mvn -Dmaven.test.failure.ignore=true clean compile"
                
             sh "mvn clean verify sonar:sonar \
                 -Dsonar.projectKey=class-D3A1-Saeed \
                 -Dsonar.host.url=http://54.226.50.200 \
-                -Dsonar.login=sqp_3ccda4ad379ef18afb14d7de70d21c7ada61530c"
+                -Dsonar.login=sqp_e8adfb3af6449669636c31ad65b2be47bb0e7880"
                
             }
 
