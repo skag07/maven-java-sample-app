@@ -5,8 +5,8 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('Saeed-SecretKey')
         ARTIFACT_NAME = 'springclinic.jar'
         AWS_S3_BUCKET = 'sda-learning-jenkins'
-        AWS_EB_APP_NAME = 'Saeed-Jenkins-assignment'
-        AWS_EB_ENVIRONMENT = 'Saeedjenkinsassignment-env'
+        AWS_EB_APP_NAME = 'Saeed-Jenkins-assignment1'
+        AWS_EB_ENVIRONMENT = 'Saeedjenkinsassignment1-env'
         AWS_EB_APP_VERSION = "${BUILD_ID}"
     } 
     stages {
